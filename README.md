@@ -31,8 +31,9 @@ int main(int argc, const char * argv[]) {
     for(i = 1; i <argc; i++)
     {
         pid = fork();
-        
         stat(argv[i], &buf);
+       
+
         
         if(pid == 0)
         {
@@ -40,69 +41,72 @@ int main(int argc, const char * argv[]) {
             gid = getgid();
             
             printf("Filename: %s\tPID: %d\n", argv[i], getpid());
-         
+            
             if(buf.st_uid == uid)
             {
-        
-                 printf("You have owner permission:");
-                if(buf.st_mode && S_IRUSR)
+                
+                printf("You have owner permission:");
+                if(buf.st_mode & S_IRUSR)
                 {
-                     printf("read")
+                    printf("read");
                 }
-                if(buf.st_mode && S_IWUSR)
+                if(buf.st_mode & S_IWUSR)
                 {
-                     printf("write");
+                    printf("write");
                 }
-                if(buf.st_mode && S_IXUSR)
+                if(buf.st_mode & S_IXUSR)
                 {
                     printf("excute");
                 }
+                 printf("\n\n");
             }
             else if(buf.st_gid == gid)
             {
                 printf("You have group permisson:");
-                if(buf.st_mode && S_IRGRP)
+                if(buf.st_mode & S_IRGRP)
                 {
-                    printf("read"):
+                    printf("read");
                 }
-                if(buf.st_mode && SIWGRP)
+                if(buf.st_mode & S_IWGRP)
                 {
                     printf("write");
                 }
-                if(buf.st_mode && S_IXGRP)
+                if(buf.st_mode & S_IXGRP)
                 {
-                    printf("excute"):
+                    printf("excute");
                 }
+                 printf("\n\n");
             }
             else
             {
                 printf("You have general permission:");
-                if(buf.st_mode && S_IROTH)
+                if(buf.st_mode & S_IROTH)
                 {
                     printf("read");
                 }
-                if(buf.st_mode && S_IWOTH)
+                if(buf.st_mode & S_IWOTH)
                 {
-                    print("write");
+                    printf("write");
                 }
                 if(buf.st_mode && S_IXOTH)
                 {
                     printf("execute");
                 }
+                printf("\n\n");
             }
-            printf("\n");
+           
             exit(1);
         }
         else
         {
             pid = wait(&status);
         }
-        printf(\n);
+        printf("\n\n");
         
     }
-                
+    
     system("ps -H");
     printf("Done!\n");
     
     return 0;
-    }
+}
