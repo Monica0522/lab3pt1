@@ -97,14 +97,16 @@ int main(int argc, const char * argv[]) {
            
             exit(1);
         }
-        else
-        {
+        
+        }
+        if(pid > 0){
+             for(int i = 1; i <argc; i++){
             pid = wait(&status);
         }
         printf("\n\n");
         
     }
-    
+    }
     system("ps -H");
     printf("Done!\n");
     
